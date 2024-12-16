@@ -3,16 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Documentation</title>
   </head>
   <body>
     <h1>Documentation</h1>
-    <p>
-      This API is designed for frontend developers who will work on the
-      client-side for the application based on what's been documented on the
-      server-side. The client-side users will be able to use a Flix of the Wrist
-      application to read information about different movies or update their
-      user information, for instance, their list of “Favorite Movies.”
-    </p>
+
+    <table>
+      <tr>
+        <th>URL</th>
+        <th>Request method</th>
+        <th>Response</th>
+      </tr>
+      <tr>
+        <td>/movies</td>
+        <td><code>GET</code></td>
+      </tr>
+      <tr>
+        <td>/movies/:title</td>
+        <td><code>GET</code></td>
+      </tr>
+      <tr>
+        <td>/movies/:director</td>
+        <td><code>GET</code></td>
+      </tr>
+      <tr>
+        <td>/movies/:genre</td>
+        <td><code>GET</code></td>
+      </tr>
+    </table>
   </body>
 </html>
