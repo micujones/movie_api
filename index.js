@@ -247,7 +247,7 @@ app.post('/users/:id/:movieTitle', (req, res) => {
 
     if (user) {
         user.favoriteMovies.push(movieTitle);
-        res.status(201).send('Movie has been added!');
+        res.status(201).send(`${movieTitle} has been added to favorites!`);
     } else { 
         res.status(400).send('The movie could not be added.');
     }
@@ -261,7 +261,7 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 
     if (user) {
         user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle );
-        res.status(201).send('Movie has been removed.');
+        res.status(201).send(`${movieTitle} has been removed from favorites.`);
     } else { 
         res.status(400).send('The movie could not be removed.');
     }

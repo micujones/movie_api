@@ -184,3 +184,7 @@
 ::1 - - [16/Dec/2024:20:32:20 +0000] "DELETE /users/1/detla HTTP/1.1" 201 73 "-" "PostmanRuntime/7.43.0"
 ::1 - - [16/Dec/2024:20:32:25 +0000] "DELETE /users/1/shrek HTTP/1.1" 201 65 "-" "PostmanRuntime/7.43.0"
 ::1 - - [16/Dec/2024:20:32:27 +0000] "DELETE /users/1/shrek HTTP/1.1" 201 65 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:33:40 +0000] "POST /users/1/shrek HTTP/1.1" 201 21 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:34:10 +0000] "DELETE /users/1/shrek HTTP/1.1" 201 23 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:36:21 +0000] "DELETE /users/1/shrek HTTP/1.1" 201 38 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:36:29 +0000] "POST /users/1/shrek HTTP/1.1" 201 34 "-" "PostmanRuntime/7.43.0"
