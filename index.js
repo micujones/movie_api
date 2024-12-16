@@ -249,12 +249,23 @@ app.post('/users/:id/:movieTitle', (req, res) => {
         user.favoriteMovies.push(movieTitle);
         res.status(201).send('Movie has been added!');
     } else { 
-        res.status(400).send('Users need names.');
+        res.status(400).send('The movie could not be added.');
     }
 });
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);
+app.delete('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
 
+    let user = users.find( user => user.id == id );
+
+    if (user) {
+        user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle );
+        res.status(201).send('Movie has been removed.');
+    } else { 
+        res.status(400).send('The movie could not be removed.');
+    }
+});
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).
 
