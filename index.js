@@ -240,7 +240,18 @@ app.put('/users/:id', (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later);
+app.post('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
 
+    let user = users.find( user => user.id == id );
+
+    if (user) {
+        user.favoriteMovies.push(movieTitle);
+        res.status(201).send('Movie has been added!');
+    } else { 
+        res.status(400).send('Users need names.');
+    }
+});
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);
 

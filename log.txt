@@ -170,3 +170,8 @@
 ::1 - - [16/Dec/2024:20:15:56 +0000] "PUT /users/1 HTTP/1.1" 200 51 "-" "PostmanRuntime/7.43.0"
 ::1 - - [16/Dec/2024:20:16:29 +0000] "PUT /users/1 HTTP/1.1" 200 43 "-" "PostmanRuntime/7.43.0"
 ::1 - - [16/Dec/2024:20:16:37 +0000] "PUT /users/1 HTTP/1.1" 200 43 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:21:38 +0000] "POST /users/1/Transformers HTTP/1.1" 201 16 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:21:47 +0000] "POST /users/1/Transformers HTTP/1.1" 201 65 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:21:54 +0000] "POST /users/1/shrek HTTP/1.1" 201 73 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:21:59 +0000] "POST /users/1/Shrek HTTP/1.1" 201 81 "-" "PostmanRuntime/7.43.0"
+::1 - - [16/Dec/2024:20:22:03 +0000] "POST /users/1/Shrek HTTP/1.1" 201 89 "-" "PostmanRuntime/7.43.0"
