@@ -17,7 +17,18 @@ app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 
 // array of users
-let users = [];
+let users = [
+    {
+        name: 'Lord Farquaad',
+        id: 1,
+        favoriteMovies: []
+    },
+    {
+        name: 'LeBron James',
+        id: 2,
+        favoriteMovies: []
+    }
+];
 
 // array of top ten favorite movies
 let movieList = [
@@ -214,7 +225,19 @@ app.post('/users', (req, res) => {
 
 
 // Allow users to update their user info (username)
+app.put('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedUser = req.body;
 
+    let user = users.find( user => user.id == id );
+
+    if (user) {
+        user.name = updatedUser.name;
+        res.status(200).json(user);
+    } else {
+        res.status(400).send('User does not exist.')
+    }
+});
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later);
 
