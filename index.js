@@ -2,8 +2,10 @@ const express = require('express'),
     morgan = require('morgan'),
     fs = require('fs'),
     path = require('path'),
-    bodyParser = require('body-parser');
-const { forEach } = require('lodash');
+    bodyParser = require('body-parser'),
+    uuid = require('uuid');
+
+const { forEach, uniqueId } = require('lodash');
 
 const app = express();
 // create a write stream (in append mode)
@@ -13,6 +15,9 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 // set up the logger
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
+
+// array of users
+let users = [];
 
 // array of top ten favorite movies
 let movieList = [
@@ -140,6 +145,10 @@ app.get('/documentation', (req, res) => {
     res.sendFile('public/documentation.html', { root: __dirname } );
 });
 
+app.get('/index', (req, res) => {
+    res.sendFile('public/index.html', { root: __dirname } );
+});
+
 
 // REST API
 
@@ -185,12 +194,23 @@ app.get('/movies/directors/:directorName', (req, res) => {
         }
     })
 
-    let message = `${directorData.name} was born in ${directorData.birthYear}`; 
+    let message = `${directorData.name} was born in ${directorData.birthYear}.`; 
     res.send(message);
 });
 
 
 // Allow new users to register
+app.post('/users', (req, res) => {
+    const newUser = req.body;
+
+    if (newUser.name) {
+        newUser.id = uuid.v4();
+        users.push(newUser);
+        res.status(201).json(newUser);
+    } else { 
+        res.status(400).send('Users need names.');
+    }
+});
 
 
 // Allow users to update their user info (username)
