@@ -209,6 +209,10 @@ app.get('/movies/directors/:directorName', (req, res) => {
     res.send(message);
 });
 
+// Return list of users
+app.get('/users', (req, res) => {
+    res.json(users);
+})
 
 // Allow new users to register
 app.post('/users', (req, res) => {
@@ -222,7 +226,6 @@ app.post('/users', (req, res) => {
         res.status(400).send('Users need names.');
     }
 });
-
 
 // Allow users to update their user info (username)
 app.put('/users/:id', (req, res) => {
@@ -268,10 +271,18 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 });
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).
+app.delete('/users/:id', (req, res) => {
+    const { id } = req.params;
 
+    let user = users.find( user => user.id == id );
 
-
-
+    if (user) {
+        users = users.filter( user => user.id != id );
+        res.status(201).send(`User with the ID: ${id} has been deleted.`);
+    } else { 
+        res.status(400).send('User does not exist.');
+    }
+});
 
 // log all application-level errors to the terminal.
 app.use((err, req, res, next) => {
