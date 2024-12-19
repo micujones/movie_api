@@ -3,34 +3,301 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
     <title>Documentation</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      code {
+        padding: 2px 4px;
+        color: #c7254e;
+        background-color: #f9f2f4;
+        border-radius: 4px;
+      }
+      .code-block {
+        font-family: monospace;
+        background-color: #f6f6f6;
+        color: #000;
+
+        width: max-content;
+        border-radius: 4px;
+        padding: 16px;
+      }
+      table {
+        width: 100%;
+      }
+      thead {
+        background-color: #f8f8f8;
+      }
+      th,
+      td {
+        border-color: #f8f8f8;
+        border-width: 2px;
+        padding: 8px 8px;
+      }
+      .success {
+        color: green;
+        font-weight: bolder;
+      }
+    </style>
   </head>
   <body>
     <h1>Documentation</h1>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>HTTP Method</th>
+            <th>Request Body Data Format</th>
+            <th>Response Body Data Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Get list of movie</td>
+            <td>/movies</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a JSON array of movies. If unsuccessful, returns a 400
+                error stating "Movie list does not exist."
+              </p>
+              <p><span class="success">Success</span> example:</p>
+              <pre class="code-block">
+[
+  {
+      "title": "Transformers",
+      "releaseYear": 2007,
+      "director": {
+          "name": "Michael Bay",
+          "birthYear": 1965
+      },
+      "genre": "science fiction action"
+  },
+  {
+      "title": "Captain America: Civil War",
+      "releaseYear": 2016,
+      "director": [
+          {
+              "name": "Anthony Russo",
+              "birthYear": 1970
+          },
+          {
+              "name": "Joe Russo",
+              "birthYear": 1971
+          }
+      ],
+      "genre": "superhero"
+  },
+  {
+      "title": "How the Grinch Stole Christmas",
+      "releaseYear": 2000,
+      "director": {
+          "name": "Ron Howard",
+          "birthYear": 1954
+      },
+      "genre": "Christmas comedy"
+  }
+] </pre
+              >
+            </td>
+          </tr>
 
-    <table>
-      <tr>
-        <th>URL</th>
-        <th>Request method</th>
-        <th>Response</th>
-      </tr>
-      <tr>
-        <td>/movies</td>
-        <td><code>GET</code></td>
-      </tr>
-      <tr>
-        <td>/movies/:title</td>
-        <td><code>GET</code></td>
-      </tr>
-      <tr>
-        <td>/movies/:director</td>
-        <td><code>GET</code></td>
-      </tr>
-      <tr>
-        <td>/movies/:genre</td>
-        <td><code>GET</code></td>
-      </tr>
-    </table>
+          <tr>
+            <td>Get movie information by title</td>
+            <td>/movies/:title</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a JSON object containing information for the
+                user-provided movie. If unsuccessful, returns a 400 error
+                stating, "Movie could not be found."
+              </p>
+              <p><span class="success">Success</span> example</p>
+              <pre class="code-block">
+{
+  "title": "Transformers",
+  "releaseYear": 2007,
+  "director": {
+      "name": "Michael Bay",
+      "birthYear": 1965
+  },
+  "genre": "science fiction action"
+} </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Get movies by genre</td>
+            <td>/movies/genres/:genre</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a JSON array containing movies that include the
+                user-provided genre. If unsuccessful, returns a 400 error
+                stating, "No movies match the [user-provided] genre."
+              </p>
+              <p><span class="success">Success</span> example.</p>
+              <pre class="code-block" style="white-space-collapse: preserve">
+[
+    {
+        "title": "Captain America: Civil War",
+        "releaseYear": 2016,
+        "director": [
+            {
+                "name": "Anthony Russo",
+                "birthYear": 1970
+            },
+            {
+                "name": "Joe Russo",
+                "birthYear": 1971
+            }
+        ],
+        "genre": "superhero"
+    },
+    {
+        "title": "The Incredibles",
+        "releaseYear": 2004,
+        "director": {
+            "name": "Brad Bird",
+            "birthYear": 1957
+        },
+        "genre": "superhero"
+    }
+] </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Get director information by name</td>
+            <td>/movies/directors/:director</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a statement about the director, including the year they
+                were born.
+              </p>
+              <p>
+                <span class="success">Success</span> example
+                (/movies/directors/andrew%20adamson):
+              </p>
+              <p class="code-block">Andrew Adamson was born in 1996.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>Create new user</td>
+            <td>/users</td>
+            <td><code>POST</code></td>
+            <td>
+              <p>JSON object with new user's data.</p>
+              <div class="code-block">
+                { <br />
+                &emsp; "name": "Florence", <br />
+                &emsp; "favoriteMovies": [] <br />}
+              </div>
+            </td>
+            <td>
+              <p>
+                New user is created, and then a 200 status and a JSON object
+                with the user's information (e.g., generated ID) is returned.
+              </p>
+              <p><span class="success">Success</span> example:</p>
+              <pre class="code-block">
+{
+  "name": "Florence",
+  "favoriteMovies": [],
+  "id": "cd7e584b-9cf5-41db-ba90-816e4467e075"
+} </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>User updates their name</td>
+            <td>/users/:id</td>
+            <td><code>PUT</code></td>
+            <td>
+              <p>JSON object with updated user's data.</p>
+              <div class="code-block">
+                { <br />
+                &emsp; "name": "Mike Wazowski", <br />
+                &emsp; "favoriteMovies": [] <br />}
+              </div>
+            </td>
+            <td>
+              <p>
+                User's name is updated, and then a 200 status and a JSON object
+                with the user's updated information is returned.
+              </p>
+              <p><span class="success">Success</span> example:</p>
+              <pre class="code-block">
+{
+  "name": "Mike Wazowski",
+  "id": 2,
+  "favoriteMovies": []
+} </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Add movie to favorites</td>
+            <td>/users/:id/:movieTitle</td>
+            <td><code>POST</code></td>
+            <td>
+              <p>JSON object with updated user data.</p>
+              <div class="code-block">{ "title": "Transformers" }</div>
+            </td>
+            <td>
+              <p>
+                Returns a statement confirming the movie has been added to the
+                user's favorites list. If the user does not exist, returns a 400
+                error stating, "The movie could not be added."
+              </p>
+              <p>
+                <span class="success">Success</span> example (/users/1/Shrek):
+              </p>
+              <p class="code-block">Shrek has been added to favorites!</p>
+            </td>
+          </tr>
+          <tr>
+            <td>Delete user by ID</td>
+            <td>/users/:id</td>
+            <td><code>DELETE</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a statement confirming the user with the provided ID has
+                been deleted. If the user does not exist, returns a 400 error
+                stating, "The user does not exist."
+              </p>
+              <p><span class="success">Success</span> example (/users/1):</p>
+              <p class="code-block">User with ID: 1 has been deleted.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>Delete movies from favorites</td>
+            <td>/users/:id/:movieTitle</td>
+            <td><code>DELETE</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a statement confirming the movie has been deleted from
+                the user's favorites list. If the user does not exist, returns a
+                400 error stating, "The movie could not be removed."
+              </p>
+              <p><span class="success">Success</span> example:</p>
+              <p class="code-block">
+                Transformers has been removed from favorites.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

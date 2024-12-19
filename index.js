@@ -197,7 +197,7 @@ app.get('/movies/genres/:genre', (req, res) => {
     if (movieListByGenre.length > 0) {
         res.status(200).json(movieListByGenre);
     } else {
-        res.status(400).send('No movies match that genre.')
+        res.status(400).send(`No movies match the ${req.params.genre.toLowerCase()} genre.`)
     }
 });
 
