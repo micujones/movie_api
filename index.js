@@ -165,14 +165,23 @@ app.get('/index', (req, res) => {
 
 // Return list of all movies
 app.get('/movies', (req, res) => {
-    res.json(movieList);
+    if (movieList) {
+        res.status(200).json(movieList);
+    } else {
+        res.status(400).send('Movie list does not exist.')
+    }
 });
 
 // Return data about a single movie by title
 app.get('/movies/:title', (req, res) => {
-    res.json(movieList.find((movie) => {
-        return movie.title.toLowerCase() === req.params.title.toLowerCase();
-    }));
+
+    movieList.find((movie) => {
+        if (movie && movie.title.toLowerCase() === req.params.title.toLowerCase()) {
+            res.status(200).json(movie);
+        } else {
+            res.status(400).send('Movie could not be found.')
+        }
+    })
 });
 
 // Return data about a genre
@@ -185,7 +194,11 @@ app.get('/movies/genres/:genre', (req, res) => {
         }
     });
 
-    res.json(movieListByGenre);
+    if (movieListByGenre.length > 0) {
+        res.status(200).json(movieListByGenre);
+    } else {
+        res.status(400).send('No movies match that genre.')
+    }
 });
 
 // Return data about a director by name
