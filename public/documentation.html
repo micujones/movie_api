@@ -19,21 +19,25 @@
         background-color: #f6f6f6;
         color: #000;
 
-        width: max-content;
+        text-wrap: balance;
         border-radius: 4px;
         padding: 16px;
       }
       table {
         width: 100%;
       }
+      table,
+      th,
+      td {
+        border: 2px solid #808080;
+        border-collapse: collapse;
+      }
       thead {
         background-color: #f8f8f8;
       }
       th,
       td {
-        border-color: #f8f8f8;
-        border-width: 2px;
-        padding: 8px 8px;
+        padding: 8px;
       }
       .success {
         color: green;
@@ -69,38 +73,49 @@
               <pre class="code-block">
 [
   {
-      "title": "Transformers",
-      "releaseYear": 2007,
-      "director": {
-          "name": "Michael Bay",
-          "birthYear": 1965
+      "Genre": {
+          "Name": "Action",
+          "Description": "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists."
       },
-      "genre": "science fiction action"
-  },
-  {
-      "title": "Captain America: Civil War",
-      "releaseYear": 2016,
-      "director": [
-          {
-              "name": "Anthony Russo",
-              "birthYear": 1970
-          },
-          {
-              "name": "Joe Russo",
-              "birthYear": 1971
-          }
+      "Director": {
+          "Name": "Michael Bay",
+          "Bio": "Michael Bay is a renowned filmmaker known for directing high-octane action blockbusters featuring explosive visuals, dynamic camera work, and massive box-office success",
+          "Birth": "1965"
+      },
+      "_id": "676d807a2c4cb1f883f66563",
+      "Title": "Transformers",
+      "Description": "Two factions of alien robots bring their ancient conflict to Earth, and humanity's fate hangs in the balance.",
+      "Actors": [
+          "Shia LaBeouf",
+          "Megan Fox",
+          "Peter Cullen",
+          "John Turturro"
       ],
-      "genre": "superhero"
+      "ImagePath": "transformers.png",
+      "Featured": true
   },
   {
-      "title": "How the Grinch Stole Christmas",
-      "releaseYear": 2000,
-      "director": {
-          "name": "Ron Howard",
-          "birthYear": 1954
+      "Genre": {
+          "Name": "Drama",
+          "Description": "Drama films explore complex human emotions, relationships, and social issues through compelling narratives and realistic character development."
       },
-      "genre": "Christmas comedy"
-  }
+      "Director": {
+          "Name": "Frank Darabont",
+          "Bio": "Frank Darabont is a critically acclaimed filmmaker known for his adaptations of Stephen King's novels, characterized by their dark and thought-provoking themes."
+      },
+      "_id": "676d807a2c4cb1f883f66564",
+      "Title": "The Shawshank Redemption",
+      "Description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "Actors": [
+          "Tim Robbins",
+          "Morgan Freeman",
+          "Bob Gunton",
+          "William Sadler"
+      ],
+      "ImagePath": "shawshank_redemption.png",
+      "Featured": true
+  },
+  ...
 ] </pre
               >
             </td>
@@ -108,7 +123,7 @@
 
           <tr>
             <td>Get movie information by title</td>
-            <td>/movies/:title</td>
+            <td>/movies/:Title</td>
             <td><code>GET</code></td>
             <td>None</td>
             <td>
@@ -117,77 +132,132 @@
                 user-provided movie. If unsuccessful, returns a 400 error
                 stating, "Movie could not be found."
               </p>
-              <p><span class="success">Success</span> example</p>
+              <p>
+                <span class="success">Success</span> example
+                (<code>/movies/Transformers</code>)
+              </p>
               <pre class="code-block">
+ 
 {
-  "title": "Transformers",
-  "releaseYear": 2007,
-  "director": {
-      "name": "Michael Bay",
-      "birthYear": 1965
-  },
-  "genre": "science fiction action"
+    "Genre": {
+        "Name": "Action",
+        "Description": "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists."
+    },
+    "Director": {
+        "Name": "Michael Bay",
+        "Bio": "Michael Bay is a renowned filmmaker known for directing high-octane action blockbusters featuring explosive visuals, dynamic camera work, and massive box-office success",
+        "Birth": "1965"
+    },
+    "_id": "676d807a2c4cb1f883f66563",
+    "Title": "Transformers",
+    "Description": "Two factions of alien robots bring their ancient conflict to Earth, and humanity's fate hangs in the balance.",
+    "Actors": [
+        "Shia LaBeouf",
+        "Megan Fox",
+        "Peter Cullen",
+        "John Turturro"
+    ],
+    "ImagePath": "transformers.png",
+    "Featured": true
 } </pre
               >
             </td>
           </tr>
           <tr>
-            <td>Get movies by genre</td>
-            <td>/movies/genres/:genre</td>
+            <td>Get genre information by name</td>
+            <td>/movies/genre/:Genre</td>
             <td><code>GET</code></td>
             <td>None</td>
             <td>
               <p>
-                Returns a JSON array containing movies that include the
-                user-provided genre. If unsuccessful, returns a 400 error
-                stating, "No movies match the [user-provided] genre."
+                Returns a description of the user-provided genre. If
+                unsuccessful, returns a 500 error stating, "No movies match the
+                [user-provided] genre."
               </p>
               <p><span class="success">Success</span> example.</p>
               <pre class="code-block" style="white-space-collapse: preserve">
-[
-    {
-        "title": "Captain America: Civil War",
-        "releaseYear": 2016,
-        "director": [
-            {
-                "name": "Anthony Russo",
-                "birthYear": 1970
-            },
-            {
-                "name": "Joe Russo",
-                "birthYear": 1971
-            }
-        ],
-        "genre": "superhero"
-    },
-    {
-        "title": "The Incredibles",
-        "releaseYear": 2004,
-        "director": {
-            "name": "Brad Bird",
-            "birthYear": 1957
-        },
-        "genre": "superhero"
-    }
-] </pre
+"Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists." </pre
               >
             </td>
           </tr>
           <tr>
             <td>Get director information by name</td>
-            <td>/movies/directors/:director</td>
+            <td>/movies/director/:Director</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>Returns a JSON object with the director's name and bio.</p>
+              <p>
+                <span class="success">Success</span> example
+                (<code>/movies/director/Christopher%20Nolan</code>):
+              </p>
+              <pre class="code-block">
+{
+  "Name": "Christopher Nolan",
+  "Bio": "Christopher Nolan is a critically acclaimed filmmaker known for his thought-provoking and visually stunning films, often exploring complex themes of identity and reality."
+} </pre
+              >
+            </td>
+          </tr>
+          <!-- USER ORIENTED QUERIES -->
+          <tr>
+            <td>Get list of users</td>
+            <td>/users</td>
             <td><code>GET</code></td>
             <td>None</td>
             <td>
               <p>
-                Returns a statement about the director, including the year they
-                were born.
+                Returns a JSON array of users. If unsuccessful, returns a 400
+                error stating "User list does not exist."
               </p>
+              <p><span class="success">Success</span> example:</p>
+              <pre class="code-block">
+[
+  {
+      "FavoriteMovies": [],
+      "_id": "676d80bd2c4cb1f883f6656d",
+      "Name": "Lord Farquaad",
+      "Username": "official_lordfarquaad",
+      "Email": "farquaad@example.kingdom",
+      "Password": "imissprincessfiona",
+      "Birthday": "1985-02-19T00:00:00.000Z"
+  },
+  {
+      "FavoriteMovies": [],
+      "_id": "676d80bd2c4cb1f883f6656e",
+      "Name": "Gandalf the Grey",
+      "Username": "wise_old_wizard",
+      "Email": "gandalf@middle-earth.net",
+      "Password": "staffofpower123",
+      "Birthday": "1000-01-01T00:00:00.000Z"
+  },
+  ...
+] </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Get user by username</td>
+            <td>/users/:Username</td>
+            <td><code>GET</code></td>
+            <td>None</td>
+            <td>
+              <p>Returns JSON object of user's data.</p>
               <p>
                 <span class="success">Success</span> example
-                (/movies/directors/andrew%20adamson):
+                (<code>/users/wise_old_wizard</code>):
               </p>
-              <p class="code-block">Andrew Adamson was born in 1996.</p>
+              <pre class="code-block">
+{
+  "FavoriteMovies": [],
+  "_id": "676d80bd2c4cb1f883f6656e",
+  "Name": "Gandalf the Grey",
+  "Username": "wise_old_wizard",
+  "Email": "gandalf@middle-earth.net",
+  "Password": "staffofpower123",
+  "Birthday": "1000-01-01T00:00:00.000Z"
+} </pre
+              >
             </td>
           </tr>
           <tr>
@@ -195,12 +265,16 @@
             <td>/users</td>
             <td><code>POST</code></td>
             <td>
-              <p>JSON object with new user's data.</p>
-              <div class="code-block">
-                { <br />
-                &emsp; "name": "Florence", <br />
-                &emsp; "favoriteMovies": [] <br />}
-              </div>
+              <p>JSON object with new user's data (required fields).</p>
+              <pre class="code-block">
+{
+  "Username": "FlorencePizza",
+  "Password": "FourFireHazards444",
+  "Email": "florentine@example.com",
+  "Birthday": "1983-04-24",
+  "FavoriteMovies": []
+} </pre
+              >
             </td>
             <td>
               <p>
@@ -210,90 +284,147 @@
               <p><span class="success">Success</span> example:</p>
               <pre class="code-block">
 {
-  "name": "Florence",
-  "favoriteMovies": [],
-  "id": "cd7e584b-9cf5-41db-ba90-816e4467e075"
+  "Username": "FlorencePizza",
+  "Password": "FourFireHazards444",
+  "Email": "florentine@example.com",
+  "Birthday": "1983-04-24T00:00:00.000Z",
+  "FavoriteMovies": [],
+  "_id": "676f01fbf9acd94021a88be4",
+  "__v": 0
 } </pre
               >
             </td>
           </tr>
           <tr>
-            <td>User updates their name</td>
-            <td>/users/:id</td>
+            <td>User updates their information</td>
+            <td>/users/:Username</td>
             <td><code>PUT</code></td>
             <td>
               <p>JSON object with updated user's data.</p>
-              <div class="code-block">
-                { <br />
-                &emsp; "name": "Mike Wazowski", <br />
-                &emsp; "favoriteMovies": [] <br />}
-              </div>
+              <pre class="code-block">
+{
+  "Username": "FlorencePizza",
+  "Password": "aStrongerPassword555",
+  "Email": "florentine@example.com",
+  "Birthday": "1983-04-24"
+} </pre
+              >
             </td>
             <td>
               <p>
-                User's name is updated, and then a 200 status and a JSON object
-                with the user's updated information is returned.
+                In this example, the user's password is updated and a JSON
+                object with the user's updated information is returned.
               </p>
               <p><span class="success">Success</span> example:</p>
               <pre class="code-block">
 {
-  "name": "Mike Wazowski",
-  "id": 2,
-  "favoriteMovies": []
+  "_id": "676f01fbf9acd94021a88be4",
+  "Username": "FlorencePizza",
+  "Password": "aStrongerPassword555",
+  "Email": "florentine@example.com",
+  "Birthday": "1983-04-24T00:00:00.000Z",
+  "FavoriteMovies": [],
+  "__v": 0
 } </pre
               >
             </td>
           </tr>
           <tr>
-            <td>Add movie to favorites</td>
-            <td>/users/:id/:movieTitle</td>
-            <td><code>POST</code></td>
-            <td>
-              <p>JSON object with updated user data.</p>
-              <div class="code-block">{ "title": "Transformers" }</div>
-            </td>
+            <td>Get list of user's favorite movies</td>
+            <td>/users/:Username/movies</td>
+            <td><code>GET</code></td>
+            <td>None</td>
             <td>
               <p>
-                Returns a statement confirming the movie has been added to the
-                user's favorites list. If the user does not exist, returns a 400
-                error stating, "The movie could not be added."
+                Returns a JSON array of the IDs of the user's favorite movies.
+                If "FavoriteMovies" is empty, returns a 400 error stating
+                "@[Username] has not added any movies." If another error occurs,
+                returns a 500 error stating.
               </p>
               <p>
-                <span class="success">Success</span> example (/users/1/Shrek):
+                <span class="success">Success</span> example
+                (<code>/users/wise_old_wizard/movies</code>):
               </p>
-              <p class="code-block">Shrek has been added to favorites!</p>
+              <p class="code-block">[ "676d807a2c4cb1f883f66563" ]</p>
             </td>
           </tr>
           <tr>
-            <td>Delete user by ID</td>
-            <td>/users/:id</td>
+            <td>Add movie to user's favorites</td>
+            <td>/users/:Username/movies/:MovieID</td>
+            <td><code>POST</code></td>
+            <td>None</td>
+            <td>
+              <p>
+                Returns a JSON object of the user's information, including the
+                added movie's ID in the FavoriteMovies array. If the movie
+                cannot be added or the user does not exist, returns a 500 error.
+              </p>
+              <p>
+                <span class="success">Success</span> example
+                (<code>/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>):
+              </p>
+              <pre class="code-block">
+{
+  "_id": "676d80bd2c4cb1f883f6656e",
+  "Name": "Gandalf the Grey",
+  "Username": "wise_old_wizard",
+  "Email": "gandalf@middle-earth.net",
+  "Password": "staffofpower123",
+  "Birthday": "1000-01-01T00:00:00.000Z",
+  "FavoriteMovies": [
+      "676d807a2c4cb1f883f66563",
+      "676d807a2c4cb1f883f66567"
+  ]
+} </pre
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Delete user by username</td>
+            <td>/users/:Username</td>
             <td><code>DELETE</code></td>
             <td>None</td>
             <td>
               <p>
-                Returns a statement confirming the user with the provided ID has
-                been deleted. If the user does not exist, returns a 400 error
-                stating, "The user does not exist."
+                Returns a statement confirming the user with the provided
+                username has been deleted. If the user does not exist, returns a
+                400 error stating, "[Username] was not found."
               </p>
-              <p><span class="success">Success</span> example (/users/1):</p>
-              <p class="code-block">User with ID: 1 has been deleted.</p>
+              <p>
+                <span class="success">Success</span> example
+                (<code>/users/ToBeDeleted</code>):
+              </p>
+              <p class="code-block">ToBeDeleted was deleted.</p>
             </td>
           </tr>
           <tr>
             <td>Delete movies from favorites</td>
-            <td>/users/:id/:movieTitle</td>
+            <td>/users/:Username/movies/:MovieID</td>
             <td><code>DELETE</code></td>
             <td>None</td>
             <td>
               <p>
-                Returns a statement confirming the movie has been deleted from
-                the user's favorites list. If the user does not exist, returns a
-                400 error stating, "The movie could not be removed."
+                Returns a JSON object of the user's information, confirming the
+                movie is removed from the FavoriteMovies array. If the movie
+                cannot be added or the user does not exist, returns a 500 error.
               </p>
-              <p><span class="success">Success</span> example:</p>
-              <p class="code-block">
-                Transformers has been removed from favorites.
+              <p>
+                <span class="success">Success</span> example:
+                (<code>users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>)
               </p>
+              <pre class="code-block">
+{
+  "_id": "676d80bd2c4cb1f883f6656e",
+  "Name": "Gandalf the Grey",
+  "Username": "wise_old_wizard",
+  "Email": "gandalf@middle-earth.net",
+  "Password": "staffofpower123",
+  "Birthday": "1000-01-01T00:00:00.000Z",
+  "FavoriteMovies": [
+      "676d807a2c4cb1f883f66563"
+  ]
+}</pre
+              >
             </td>
           </tr>
         </tbody>
