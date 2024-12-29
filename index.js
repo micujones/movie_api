@@ -163,11 +163,15 @@ app.get('/index', (req, res) => {
 app.get('/movies', async (req, res) => {
     await Movies.find()
         .then((movies) => {
-            res.status(201).json(movies);
+            if (movies) {
+                res.status(200).json(movies);
+            } else {
+                res.status(404).send('Movie list does not exist.');
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}\nMovie list does not exist.`);
+            res.status(500).send(`Error: ${error}.`);
         });
 });
 
@@ -175,11 +179,16 @@ app.get('/movies', async (req, res) => {
 app.get('/movies/:Title', async (req, res) => {
     await Movies.find( { Title: req.params.Title })
         .then((movie) => {
-            res.status(200).json(movie);
+            if (movie[0]) { // Returns the object in an array, 
+            // which will only include one item at 0 index, so it needs index.
+                res.status(200).json(movie);
+            } else {
+                res.status(404).send('Movie does not exist.');
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}.`);
         });
 })
 
@@ -187,11 +196,15 @@ app.get('/movies/:Title', async (req, res) => {
 app.get('/movies/genre/:Genre', async (req, res) => {
     await Movies.findOne( { "Genre.Name": req.params.Genre })
         .then((movie) => {
-            res.status(200).json(movie.Genre.Description);
+            if (movie) {
+                res.status(200).json(movie.Genre.Description);
+            } else {
+                res.status(404).send(`No movies match the ${req.params.Genre.toLowerCase()} genre.`);
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}.\nNo movies match the ${req.params.Genre.toLowerCase()} genre.`);
+            res.status(500).send(`Error: ${error}.`);
         });
 })
 
@@ -199,11 +212,15 @@ app.get('/movies/genre/:Genre', async (req, res) => {
 app.get('/movies/director/:DirectorName', async (req, res) => {
     await Movies.findOne( { "Director.Name": req.params.DirectorName })
         .then((movie) => {
-            res.status(200).json(movie.Director);
+            if (movie) {
+                res.status(200).json(movie.Director);
+            } else {
+                res.status(404).send(`No movies have ${req.params.DirectorName} listed as a director.`);
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}.`);
         });
 })
 
@@ -213,11 +230,15 @@ app.get('/movies/director/:DirectorName', async (req, res) => {
 app.get('/users', async (req, res) => {
     await Users.find()
         .then((users) => {
-            res.status(201).json(users);
+            if (users) {
+                res.status(200).json(users);
+            } else {
+                res.status(404).send('No users have been registered.');
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}\nUser list does not exist.`);
+            res.status(500).send(`Error: ${error}.`);
         });
 });
 
@@ -225,11 +246,15 @@ app.get('/users', async (req, res) => {
 app.get('/users/:Username', async (req, res) => {
     await Users.findOne( { Username: req.params.Username })
         .then((user) => {
-            res.json(user);
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).send(`User with the username @${req.params.Username} does not exist.`);
+            }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}\nUser not found.`);
+            res.status(500).send(`Error: ${error}.`);
         });
 
 });
@@ -238,14 +263,14 @@ app.get('/users/:Username/movies', async (req, res) => {
     await Users.findOne({ Username: req.params.Username })
         .then((user) => {
             if (user.FavoriteMovies.length < 1) {
-                res.status(400).json(`@${user.Username} has not added any movies.`);
+                res.status(404).json(`@${user.Username} has not added any movies.`);
             } else {
                 res.status(200).json(user.FavoriteMovies);
             }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}.`);
         });
 });
 
@@ -281,13 +306,13 @@ app.post('/users', async (req, res) => {
                 .then((user) => { res.status(201).json(user) })
                 .catch((error) => {
                     console.error(error);
-                    res.status(500).send(`Error: ${error}`);
+                    res.status(500).send(`Error: ${error}.`);
                 })
             }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}.`);
         });
 });
 
@@ -303,11 +328,11 @@ app.put('/users/:Username', async (req, res) => {
     },
     { new: true })
     .then((updatedUser) => {
-        res.json(updatedUser);
+        res.status(201).json(updatedUser);
     })
     .catch((error) => {
         console.error(error);
-        res.status(500).send(`Error: ${error}`);
+        res.status(500).send(`Error: ${error}.`);
     });
 })
 
@@ -318,11 +343,11 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
     },
     { new: true })
     .then((updatedUser) => {
-        res.json(updatedUser);
+        res.status(201).json(updatedUser);
     })
     .catch((error) => {
         console.error(error);
-        res.status(500).send(`Error: ${error}`);
+        res.status(500).send(`Error: ${error}.`);
     });
 });
 
@@ -335,11 +360,11 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
     },
     { new: true })
     .then((updatedUser) => {
-        res.json(updatedUser);
+        res.status(200).json(updatedUser);
     })
     .catch((error) => {
         console.error(error);
-        res.status(500).send(`Error: ${error}`);
+        res.status(500).send(`Error: ${error}.`);
     });
 });
 
@@ -348,14 +373,14 @@ app.delete('/users/:Username', async (req, res) => {
     await Users.findOneAndDelete({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
-                res.status(400).send(`${req.params.Username} was not found.`);
+                res.status(404).send(`${req.params.Username} was not found.`);
             } else { 
                 res.status(200).send(`${req.params.Username} was deleted.`);
             }
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}.`);
         });
 });
 
