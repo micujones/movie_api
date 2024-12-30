@@ -24,124 +24,6 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 
-// array of top ten favorite movies
-let movieList = [
-    {
-        title: 'Transformers',
-        releaseYear: 2007,
-        director: {
-            name: 'Michael Bay',
-            birthYear: 1965
-        },
-        genre: 'science fiction action',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/6/66/Transformers07.jpg?20241126113009'
-    },
-    {
-        title: 'Captain America: Civil War',
-        releaseYear: 2016,
-        director: [{ 
-            name: 'Anthony Russo',
-            birthYear: 1970
-        }, {
-            name: 'Joe Russo',
-            birthYear: 1971
-        }],
-        genre: 'superhero',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/5/53/Captain_America_Civil_War_poster.jpg'
-    },
-    {
-        title: 'How the Grinch Stole Christmas',
-        releaseYear: 2000,
-        director: {
-            name: 'Ron Howard',
-            birthYear: 1954
-        },
-        genre: 'Christmas comedy',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/e/e7/How_the_Grinch_Stole_Christmas_film_poster.jpg'
-    },
-    {
-        title: 'Zootopia',
-        releaseYear: 2016,
-        director: [{
-            name: 'Byron Howard',
-            birthYear: 1968
-        }, {
-            name: 'Rich Moore',
-            birthYear: 1963
-        }],
-        genre: 'action comedy',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/9/96/Zootopia_%28movie_poster%29.jpg'
-    },
-    {
-        title: 'The Incredibles',
-        releaseYear: 2004,
-        director: { 
-            name: 'Brad Bird',
-            birthYear: 1957
-        },
-        genre: 'superhero',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/2/27/The_Incredibles_%282004_animated_feature_film%29.jpg'
-    },
-    {
-        title: 'The Pink Panther',
-        releaseYear: 2006,
-        director: { 
-            name: 'Shawn Levy',
-            birthYear: 1968
-        },
-        genre: 'mystery comedy',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Pinkpanther_mp.jpg'
-    },
-    {
-        title: 'Shrek',
-        releaseYear: 2001,
-        director: [{
-            name: 'Andrew Adamson',
-            birthYear: 1966
-        }, {
-            name: 'Vicky Jenson',
-            birthYear: 1960
-        }],
-        genre: 'fantasy comedy',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/7/7b/Shrek_%282001_animated_feature_film%29.jpg'
-    },
-    {
-        title: 'Everything Everywhere All At Once',
-        releaseYear: 2022,
-        director: [{
-            name: 'Daniel Kwan',
-            birthYear: 1988
-        }, { 
-            name: 'Daniel Scheinert',
-            birthYear: 1987
-        }],
-        genre: 'comedy drama',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Everything_Everywhere_All_at_Once.jpg'
-    },
-    {
-        title: 'Bullet Train',
-        releaseYear: 2022,
-        director: { 
-            name: 'David Leitch',
-            birthYear: 1975
-        },
-        genre: 'action comedy',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/1/13/Bullet_Train_%28poster%29.jpeg'
-    },
-    {
-        title: 'They Cloned Tyrone',
-        releaseYear: 2023,
-        director: {
-            name: 'Juel Taylor',
-            birthYear: 1987
-        },
-        genre: 'science fiction comedy mystery',
-        cover: 'https://upload.wikimedia.org/wikipedia/en/5/53/They_cloned_tyrone_poster.png'
-    }
-];
-
-let movieListByGenre = [];
-
 app.get('/', (req, res) => {
   res.send('Welcome to my app!');
 });
@@ -176,14 +58,14 @@ app.get('/movies', async (req, res) => {
 });
 
 // Return data about a single movie by title
-app.get('/movies/:Title', async (req, res) => {
-    await Movies.find( { Title: req.params.Title })
+app.get('/movies/:title', async (req, res) => {
+    await Movies.find( { title: req.params.title })
         .then((movie) => {
             if (movie[0]) { // Returns the object in an array, 
             // which will only include one item at 0 index, so it needs index.
                 res.status(200).json(movie);
             } else {
-                res.status(404).send('Movie does not exist.');
+                res.status(404).send(`"${req.params.title}" is not in database.`);
             }
         })
         .catch((error) => {
@@ -193,13 +75,13 @@ app.get('/movies/:Title', async (req, res) => {
 })
 
 // Return data about a genre
-app.get('/movies/genre/:Genre', async (req, res) => {
-    await Movies.findOne( { "Genre.Name": req.params.Genre })
+app.get('/movies/genre/:genre', async (req, res) => {
+    await Movies.findOne( { "genre.name": req.params.genre })
         .then((movie) => {
             if (movie) {
-                res.status(200).json(movie.Genre.Description);
+                res.status(200).json(movie.genre.description);
             } else {
-                res.status(404).send(`No movies match the ${req.params.Genre.toLowerCase()} genre.`);
+                res.status(404).send(`No movies match the ${req.params.genre.toLowerCase()} genre.`);
             }
         })
         .catch((error) => {
@@ -209,13 +91,13 @@ app.get('/movies/genre/:Genre', async (req, res) => {
 })
 
 // Return data about a director by name
-app.get('/movies/director/:DirectorName', async (req, res) => {
-    await Movies.findOne( { "Director.Name": req.params.DirectorName })
+app.get('/movies/director/:directorName', async (req, res) => {
+    await Movies.findOne( { "director.Name": req.params.directorName })
         .then((movie) => {
             if (movie) {
-                res.status(200).json(movie.Director);
+                res.status(200).json(movie.director);
             } else {
-                res.status(404).send(`No movies have ${req.params.DirectorName} listed as a director.`);
+                res.status(404).send(`No movies have ${req.params.directorName} listed as a director.`);
             }
         })
         .catch((error) => {
@@ -243,13 +125,13 @@ app.get('/users', async (req, res) => {
 });
 
 // Return a single user by username
-app.get('/users/:Username', async (req, res) => {
-    await Users.findOne( { Username: req.params.Username })
+app.get('/users/:username', async (req, res) => {
+    await Users.findOne( { username: req.params.username })
         .then((user) => {
             if (user) {
                 res.status(200).json(user);
             } else {
-                res.status(404).send(`User with the username @${req.params.Username} does not exist.`);
+                res.status(404).send(`User with the username @${req.params.username} does not exist.`);
             }
         })
         .catch((error) => {
@@ -259,23 +141,23 @@ app.get('/users/:Username', async (req, res) => {
 
 });
 
-app.get('/users/:Username/movies', async (req, res) => {
-    await Users.findOne({ Username: req.params.Username })
+app.get('/users/:username/movies', async (req, res) => {
+    await Users.findOne({ username: req.params.username })
         .then(async (user) => {
             if (user) {
-                if (user.FavoriteMovies.length < 1) {
-                    res.status(404).json(`@${user.Username} has not added any movies.`);
+                if (user.favoriteMovies.length < 1) {
+                    res.status(404).send(`@${user.username} has not added any movies.`);
                 } else {
                     let movieTitlesList = [];
 
-                    for (i = 0; i < user.FavoriteMovies.length; i++) {
-                        let movie = await getMovieDocument(user.FavoriteMovies[i]);
-                        movieTitlesList.push(`${movie.Title} (ID: ${user.FavoriteMovies[i]})`);
+                    for (i = 0; i < user.favoriteMovies.length; i++) {
+                        let movie = await getMovieDocument(user.favoriteMovies[i]);
+                        movieTitlesList.push(`${movie.title} (ID: ${user.favoriteMovies[i]})`);
                     }
                     res.status(200).json(movieTitlesList.sort());
                 }
             } else {
-                res.status(404).send(`User with the username @${req.params.Username} does not exist.`);
+                res.status(404).send(`User with the username @${req.params.username} does not exist.`);
             }
         })
         .catch((error) => {
@@ -292,16 +174,16 @@ async function getMovieDocument(id) {
 
 // Allow new users to register
 app.post('/users', async (req, res) => {
-    await Users.findOne({ Username: req.body.Username })
+    await Users.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
-                return res.status(400).send(`${req.body.Username} already exists.`);
+                return res.status(400).send(`${req.body.username} already exists.`);
             } else {
                 Users.create({
-                    Username: req.body.Username,
-                    Password: req.body.Password,
-                    Email: req.body.Email,
-                    Birthday: req.body.Birthday
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    birthday: req.body.birthday
                 })
                 .then((user) => { res.status(201).json(user) })
                 .catch((error) => {
@@ -317,13 +199,13 @@ app.post('/users', async (req, res) => {
 });
 
 // Allow users to update their user info (username)
-app.put('/users/:Username', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, { $set: 
+app.put('/users/:username', async (req, res) => {
+    await Users.findOneAndUpdate({ username: req.params.username }, { $set: 
         {
-            Username: req.body.Username,
-            Password: req.body.Password,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            birthday: req.body.birthday
         }
     },
     { new: true })
@@ -337,9 +219,9 @@ app.put('/users/:Username', async (req, res) => {
 })
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:Username/movies/:MovieID', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, {
-        $addToSet: { FavoriteMovies: req.params.MovieID }
+app.post('/users/:username/movies/:movieId', async (req, res) => {
+    await Users.findOneAndUpdate({ username: req.params.username }, {
+        $addToSet: { favoriteMovies: req.params.movieId }
     },
     { new: true })
     .then((updatedUser) => {
@@ -354,9 +236,9 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 // DELETE METHODS
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, {
-        $pull: { FavoriteMovies: req.params.MovieID }
+app.delete('/users/:username/movies/:movieId', async (req, res) => {
+    await Users.findOneAndUpdate({ username: req.params.username }, {
+        $pull: { favoriteMovies: req.params.movieId }
     },
     { new: true })
     .then((updatedUser) => {
@@ -369,13 +251,13 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Allow existing users to deregister
-app.delete('/users/:Username', async (req, res) => {
-    await Users.findOneAndDelete({ Username: req.params.Username })
+app.delete('/users/:username', async (req, res) => {
+    await Users.findOneAndDelete({ username: req.params.username })
         .then((user) => {
             if (!user) {
-                res.status(404).send(`${req.params.Username} was not found.`);
+                res.status(404).send(`${req.params.username} was not found.`);
             } else { 
-                res.status(200).send(`${req.params.Username} was deleted.`);
+                res.status(200).send(`${req.params.username} was deleted.`);
             }
         })
         .catch((error) => {
