@@ -261,11 +261,21 @@ app.get('/users/:Username', async (req, res) => {
 
 app.get('/users/:Username/movies', async (req, res) => {
     await Users.findOne({ Username: req.params.Username })
-        .then((user) => {
-            if (user.FavoriteMovies.length < 1) {
-                res.status(404).json(`@${user.Username} has not added any movies.`);
+        .then(async (user) => {
+            if (user) {
+                if (user.FavoriteMovies.length < 1) {
+                    res.status(404).json(`@${user.Username} has not added any movies.`);
+                } else {
+                    let movieTitlesList = [];
+
+                    for (i = 0; i < user.FavoriteMovies.length; i++) {
+                        let movie = await getMovieDocument(user.FavoriteMovies[i]);
+                        movieTitlesList.push(`${movie.Title} (ID: ${user.FavoriteMovies[i]})`);
+                    }
+                    res.status(200).json(movieTitlesList.sort());
+                }
             } else {
-                res.status(200).json(user.FavoriteMovies);
+                res.status(404).send(`User with the username @${req.params.Username} does not exist.`);
             }
         })
         .catch((error) => {
@@ -274,18 +284,8 @@ app.get('/users/:Username/movies', async (req, res) => {
         });
 });
 
-// Functionality for return array of titles, not id's (unfinished)
-function getFavoriteMovies(user) {
-    let movieList = [];
-
-    for (i = 0; i < user.FavoriteMovies.length; i++) {
-        Movies.find({ _id: user.FavoriteMovies[i] })
-            .then((movie) => {
-                movieList.push(movie.Title);
-            });
-    }
-
-    return movieList;
+async function getMovieDocument(id) {
+    return await Movies.findById(id);
 }
 
 // CREATE & UPDATE METHODS
