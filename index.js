@@ -43,6 +43,8 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const { check, validationResult } = require('express-validator');
+
 app.get('/', (req, res) => {
   res.send('Welcome to my app!');
 });
@@ -197,55 +199,77 @@ async function getMovieDocument(id) {
 // CREATE & UPDATE METHODS
 
 // Allow new users to register
-app.post('/users', async (req, res) => {
-    let hashPassword = Users.hashPassword(req.body.password);
-    await Users.findOne({ username: req.body.username })
-        .then((user) => {
-            if (user) {
-                return res.status(400).send(`${req.body.username} already exists.`);
-            } else {
-                Users.create({
-                    username: req.body.username,
-                    password: req.body.password,
-                    email: req.body.email,
-                    birthday: req.body.birthday
-                })
-                .then((user) => { res.status(201).json(user) })
-                .catch((error) => {
-                    console.error(error);
-                    res.status(500).send(`Error: ${error}.`);
-                });
+app.post('/users', 
+    [
+        check('username', 'Username is required.').isLength({ min: 7 }),
+        check('username', 'Username cannot contain non-alphanumeric characters.').isAlphanumeric(),
+        check('password', 'Password must be at least 10 characters.').isLength({ min: 10 }),
+        check('email', 'Email does not appear to be valid.').isEmail()
+    ], async (req, res) => {
+        // Check validation object for errors
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+
+        let hashedPassword = Users.hashPassword(req.body.password);
+
+        await Users.findOne({ username: req.body.username })
+            .then((user) => {
+                if (user) {
+                    return res.status(400).send(`${req.body.username} already exists.`);
+                } else {
+                    Users.create({
+                        username: req.body.username,
+                        password: hashedPassword,
+                        email: req.body.email,
+                        birthday: req.body.birthday
+                    })
+                    .then((user) => { res.status(201).json(user) })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).send(`Error: ${error}.`);
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).send(`Error: ${error}.`);
+            });
+});
+
+// Allow users to update their user info (username)
+app.put('/users/:username',
+    [
+        check('username', 'Username is required.').isLength({ min: 7 }),
+        check('username', 'Username cannot contain non-alphanumeric characters.').isAlphanumeric(),
+        check('password', 'Password must be at least 10 characters.').isLength({ min: 10 }),
+        check('email', 'Email does not appear to be valid.').isEmail()
+    ],
+    passport.authenticate('jwt', { session: false }), async (req, res) => {
+        // Check validation object for errors
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+
+        // Check that user is altering their own data
+        if (req.user.username !== req.params.username) {
+            return res.status(401).send('Permission denied.');
+        }
+
+        await Users.findOneAndUpdate({ username: req.params.username }, { $set: 
+            {
+                username: req.body.username,
+                password: req.body.password,
+                email: req.body.email,
+                birthday: req.body.birthday
             }
+        },
+        { new: true }) // Makes sure that the updated document is returned
+        .then((updatedUser) => {
+            res.status(201).json(updatedUser);
         })
         .catch((error) => {
             console.error(error);
             res.status(500).send(`Error: ${error}.`);
         });
-});
-
-// Allow users to update their user info (username)
-app.put('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    // Check that user is altering their own data
-    if (req.user.username !== req.params.username) {
-        return res.status(401).send('Permission denied.');
-    }
-
-    await Users.findOneAndUpdate({ username: req.params.username }, { $set: 
-        {
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            birthday: req.body.birthday
-        }
-    },
-    { new: true }) // Makes sure that the updated document is returned
-    .then((updatedUser) => {
-        res.status(201).json(updatedUser);
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).send(`Error: ${error}.`);
-    });
 })
 
 // Allow users to add a movie to their list of favorites
