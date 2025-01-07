@@ -198,6 +198,7 @@ async function getMovieDocument(id) {
 
 // Allow new users to register
 app.post('/users', async (req, res) => {
+    let hashPassword = Users.hashPassword(req.body.password);
     await Users.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
@@ -213,7 +214,7 @@ app.post('/users', async (req, res) => {
                 .catch((error) => {
                     console.error(error);
                     res.status(500).send(`Error: ${error}.`);
-                })
+                });
             }
         })
         .catch((error) => {
