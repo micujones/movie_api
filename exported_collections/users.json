@@ -1,0 +1,2 @@
+{"_id":{"$oid":"677cb0ffae43346d2a29b7a2"},"username":"mikejones","password":"$2b$10$9BG1j5VQfjf4cS/WjgxCJe5GjRz40kmRAs5aL.j/IWFYcmhDRA9aC","email":"micujonesii@gmail.com","birthday":{"$date":"1996-08-29T00:00:00Z"},"favoriteMovies":[],"__v":0}
+{"_id":{"$oid":"677cb128ae43346d2a29b7a5"},"username":"lord_farquaad","password":"$2b$10$PmKxShuHMnMiDoElTmiBTedNFVmFtimU7EDj/ze6GhabRstphGENy","email":"farquaad@aol.com","birthday":{"$date":"1983-03-22T00:00:00Z"},"favoriteMovies":[],"__v":0}
