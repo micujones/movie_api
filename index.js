@@ -11,7 +11,8 @@ const  mongoose = require('mongoose'),
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://127.0.0.1:27017/mostwatchedlistDB');
+// mongoose.connect('mongodb://127.0.0.1:27017/mostwatchedlistDB');
+mongoose.connect(process.env.CONNECTION_URI);
 
 const { forEach, uniqueId } = require('lodash');
 
