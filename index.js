@@ -19,7 +19,7 @@ const { forEach, uniqueId } = require('lodash');
 const app = express();
 // create a write stream (in append mode)
 // a 'log.txt' file is created in the root directory
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
+// const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
 // set up the logger
 app.use(morgan('combined', {stream: accessLogStream}));
@@ -255,10 +255,12 @@ app.put('/users/:username',
             return res.status(401).send('Permission denied.');
         }
 
+        let hashedPassword = Users.hashPassword(req.body.password);
+
         await Users.findOneAndUpdate({ username: req.params.username }, { $set: 
             {
                 username: req.body.username,
-                password: req.body.password,
+                password: hashedPassword,
                 email: req.body.email,
                 birthday: req.body.birthday
             }
