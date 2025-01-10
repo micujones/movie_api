@@ -70,7 +70,7 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, r
             if (movies) {
                 res.status(200).json(movies);
             } else {
-                res.status(404).send('Movie list does not exist.');
+                res.status(204).send('Movie list does not exist.');
             }
         })
         .catch((error) => {
@@ -87,7 +87,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
             // which will only include one item at 0 index, so it needs index.
                 res.status(200).json(movie);
             } else {
-                res.status(404).send(`"${req.params.title}" is not in database.`);
+                res.status(204).send(`"${req.params.title}" is not in database.`);
             }
         })
         .catch((error) => {
@@ -103,7 +103,7 @@ app.get('/movies/genre/:genre', passport.authenticate('jwt', { session: false })
             if (movie) {
                 res.status(200).json(movie.genre.description);
             } else {
-                res.status(404).send(`No movies match the ${req.params.genre.toLowerCase()} genre.`);
+                res.status(204).send(`No movies match the ${req.params.genre.toLowerCase()} genre.`);
             }
         })
         .catch((error) => {
@@ -119,7 +119,7 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
             if (movie) {
                 res.status(200).json(movie.director);
             } else {
-                res.status(404).send(`No movies have ${req.params.directorName} listed as a director.`);
+                res.status(204).send(`No movies have ${req.params.directorName} listed as a director.`);
             }
         })
         .catch((error) => {
@@ -137,7 +137,7 @@ app.get('/users', async (req, res) => {
             if (users) {
                 res.status(200).json(users);
             } else {
-                res.status(404).send('No users have been registered.');
+                res.status(204).send('No users have been registered.');
             }
         })
         .catch((error) => {
@@ -158,7 +158,7 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
             if (user) {
                 res.status(200).json(user);
             } else {
-                res.status(404).send(`User with the username @${req.params.username} does not exist.`);
+                res.status(204).send(`User with the username @${req.params.username} does not exist.`);
             }
         })
         .catch((error) => {
@@ -173,7 +173,7 @@ app.get('/users/:username/movies', passport.authenticate('jwt', { session: false
         .then(async (user) => {
             if (user) {
                 if (user.favoriteMovies.length < 1) {
-                    res.status(404).send(`@${user.username} has not added any movies.`);
+                    res.status(204).send(`@${user.username} has not added any movies.`);
                 } else {
                     let movieTitlesList = [];
 
@@ -184,7 +184,7 @@ app.get('/users/:username/movies', passport.authenticate('jwt', { session: false
                     res.status(200).json(movieTitlesList.sort());
                 }
             } else {
-                res.status(404).send(`User with the username @${req.params.username} does not exist.`);
+                res.status(204).send(`User with the username @${req.params.username} does not exist.`);
             }
         })
         .catch((error) => {
@@ -327,7 +327,7 @@ app.delete('/users/:username', passport.authenticate('jwt', { session: false }),
     await Users.findOneAndDelete({ username: req.params.username })
         .then((user) => {
             if (!user) {
-                res.status(404).send(`${req.params.username} was not found.`);
+                res.status(204).send(`${req.params.username} was not found.`);
             } else { 
                 res.status(200).send(`${req.params.username} was deleted.`);
             }
