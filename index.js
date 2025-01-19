@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 // Cross-origin resource sharing
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://mostwatchedlist-f9604e12841c.herokuapp.com']
+let allowedOrigins = ['http://localhost:8080']
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
@@ -64,7 +64,7 @@ app.get('/index', (req, res) => {
 // READ DATA FOR MOVIES
 
 // Return list of all movies
-app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => { // passport.authenticate('jwt', {session: false})
+app.get('/movies', async (req, res) => { // passport.authenticate('jwt', {session: false})
     await Movies.find()
         .then((movies) => {
             if (movies) {
