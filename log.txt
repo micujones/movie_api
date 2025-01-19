@@ -1,0 +1,2 @@
+127.0.0.1 - - [19/Jan/2025:22:20:15 +0000] "GET /documentation HTTP/1.1" 200 14292 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+127.0.0.1 - - [19/Jan/2025:22:20:24 +0000] "GET /movies/fantasy HTTP/1.1" 401 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
