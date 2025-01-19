@@ -22,24 +22,22 @@ const app = express();
 // const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
 // set up the logger
-app.use(morgan('combined', {stream: accessLogStream}));
+// app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 
 // Cross-origin resource sharing
 const cors = require('cors');
-// let allowedOrigins = ['http://localhost:8080']
-app.use(cors(
-    // {
-    //     origin: (origin, callback) => {
-    //         if(!origin) return callback(null, true);
-    //         if(!allowedOrigins.includes(origin)) {
-    //             let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-    //             return callback(new Error(message), false);
-    //         }
-    //         return callback(null, true);
-    //     }
-    // }
-));
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://mostwatchedlist-f9604e12841c.herokuapp.com'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin) return callback(null, true);
+        if(!allowedOrigins.includes(origin)) {
+            let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 // AUTHENTICATION
 let auth = require('./auth')(app);
