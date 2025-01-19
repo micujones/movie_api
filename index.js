@@ -22,12 +22,12 @@ const app = express();
 // const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 
 // set up the logger
-app.use(morgan('combined', {stream: accessLogStream}));
+// app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 
 // Cross-origin resource sharing
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://git.heroku.com/mostwatchedlist.git', 'https://mostwatchedlist-f9604e12841c.herokuapp.com/', 'http://localhost:1234']
+let allowedOrigins = ['http://localhost:8080', 'https://mostwatchedlist-f9604e12841c.herokuapp.com/', 'http://localhost:1234']
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
