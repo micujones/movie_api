@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 // Cross-origin resource sharing
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080']
+let allowedOrigins = ['http://localhost:8080', 'https://git.heroku.com/mostwatchedlist.git']
 app.use(cors({
     origin: (origin, callback) => {
         if(!origin) return callback(null, true);
