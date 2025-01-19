@@ -27,17 +27,19 @@ app.use(bodyParser.json());
 
 // Cross-origin resource sharing
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080']
-app.use(cors({
-    origin: (origin, callback) => {
-        if(!origin) return callback(null, true);
-        if(!allowedOrigins.includes(origin)) {
-            let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-            return callback(new Error(message), false);
-        }
-        return callback(null, true);
-    }
-}));
+// let allowedOrigins = ['http://localhost:8080']
+app.use(cors(
+    // {
+    //     origin: (origin, callback) => {
+    //         if(!origin) return callback(null, true);
+    //         if(!allowedOrigins.includes(origin)) {
+    //             let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+    //             return callback(new Error(message), false);
+    //         }
+    //         return callback(null, true);
+    //     }
+    // }
+));
 
 // AUTHENTICATION
 let auth = require('./auth')(app);
