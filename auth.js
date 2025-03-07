@@ -33,15 +33,19 @@ module.exports = (router) => {
                     // Check for existing token
                     const existingToken =
                         req.headers.authorization?.split(' ')[1];
+
                     if (existingToken) {
                         try {
                             const decoded = jwt.verify(
                                 existingToken,
-                                jwtSecret
+                                process.env.JWT_SECRET
                             );
                             if (decoded && decoded.exp * 1000 > Date.now()) {
-                                // Token is still valid
-                                return res.json({ user, token: existingToken });
+                                // Token is still validc
+                                return res.json({
+                                    user,
+                                    token: existingToken,
+                                });
                             }
                         } catch (error) {
                             // Token is invalid or expired
