@@ -30,6 +30,7 @@ module.exports = (router) => {
                         res.send(error);
                     }
 
+                    // START SUGGESTED FIX
                     // Check for existing token
                     const existingToken =
                         req.headers.authorization?.split(' ')[1];
@@ -51,6 +52,7 @@ module.exports = (router) => {
                             // Token is invalid or expired
                         }
                     }
+                    // END SUGGESTED FIX
 
                     let token = generateJWTToken(user.toJSON());
                     return res.json({ user, token });
