@@ -305,9 +305,9 @@ app.put(
             return res.status(422).json({ errors: errors.array() });
 
         // Check that user is altering their own data
-        if (req.user.username !== req.params.username) {
-            return res.status(401).send('Permission denied.');
-        }
+        // if (req.user.username !== req.params.username) {
+        //     return res.status(401).send('Permission denied.');
+        // }
 
         // Update relevant information
         await Users.findOne({ username: req.params.username }).then(() => {
