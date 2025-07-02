@@ -32,6 +32,7 @@ let allowedOrigins = [
     'https://mostwatchedlist-f9604e12841c.herokuapp.com',
     'http://localhost:1234',
     'https://mostwatchedlist.netlify.app',
+    'http://localhost:4200',
 ];
 app.use(
     cors({
