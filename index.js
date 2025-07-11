@@ -33,7 +33,7 @@ let allowedOrigins = [
     'http://localhost:1234',
     'https://mostwatchedlist.netlify.app',
     'http://localhost:4200',
-    'https://micujones.github.io/mostwatchedlist-Angular-client',
+    'https://micujones.github.io',
 ];
 app.use(
     cors({
