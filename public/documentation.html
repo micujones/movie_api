@@ -1,84 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Documentation</title>
-    <style>
-      body {
-        font-family: sans-serif;
-      }
-      code {
-        padding: 2px 4px;
-        color: #c7254e;
-        background-color: #f9f2f4;
-        border-radius: 4px;
-      }
-      .code-block {
-        font-family: monospace;
-        background-color: #f6f6f6;
-        color: #000;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Documentation</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            code {
+                padding: 2px 4px;
+                color: #c7254e;
+                background-color: #f9f2f4;
+                border-radius: 4px;
+            }
+            .code-block {
+                font-family: monospace;
+                background-color: #f6f6f6;
+                color: #000;
 
-        text-wrap: balance;
-        border-radius: 4px;
-        padding: 16px;
-      }
-      table {
-        width: 100%;
-      }
-      table,
-      th,
-      td {
-        border: 2px solid #808080;
-        border-collapse: collapse;
-      }
-      thead {
-        background-color: #f8f8f8;
-      }
-      th,
-      td {
-        padding: 8px;
-      }
-      .success {
-        color: green;
-        font-weight: bolder;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Documentation</h1>
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Request</th>
-            <th>URL</th>
-            <th>HTTP Method</th>
-            <th>Request Body Data Format</th>
-            <th>Response Body Data Format</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Get list of movie</td>
-            <td>/movies</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON array of movies. If unsuccessful, returns a 400
-                error stating "Movie list does not exist."
-              </p>
-              <p><span class="success">Success</span> example:</p>
-              <pre class="code-block">
+                text-wrap: balance;
+                border-radius: 4px;
+                padding: 16px;
+            }
+            table {
+                width: 100%;
+            }
+            table,
+            th,
+            td {
+                border: 2px solid #808080;
+                border-collapse: collapse;
+            }
+            thead {
+                background-color: #f8f8f8;
+            }
+            th,
+            td {
+                padding: 8px;
+            }
+            .success {
+                color: green;
+                font-weight: bolder;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Documentation</h1>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Request</th>
+                        <th>URL</th>
+                        <th>HTTP Method</th>
+                        <th>Request Body Data Format</th>
+                        <th>Response Body Data Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Get list of movie</td>
+                        <td>/movies</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON array of movies. If unsuccessful,
+                                returns a 400 error stating "Movie list does not
+                                exist."
+                            </p>
+                            <p><span class="success">Success</span> example:</p>
+                            <pre class="code-block">
 [
   {
       "Genre": {
-          "Name": "Action",
+          "name": "Action",
           "Description": "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists."
       },
       "Director": {
-          "Name": "Michael Bay",
+          "name": "Michael Bay",
           "Bio": "Michael Bay is a renowned filmmaker known for directing high-octane action blockbusters featuring explosive visuals, dynamic camera work, and massive box-office success",
           "Birth": "1965"
       },
@@ -96,11 +97,11 @@
   },
   {
       "Genre": {
-          "Name": "Drama",
+          "name": "Drama",
           "Description": "Drama films explore complex human emotions, relationships, and social issues through compelling narratives and realistic character development."
       },
       "Director": {
-          "Name": "Frank Darabont",
+          "name": "Frank Darabont",
           "Bio": "Frank Darabont is a critically acclaimed filmmaker known for his adaptations of Stephen King's novels, characterized by their dark and thought-provoking themes."
       },
       "_id": "676d807a2c4cb1f883f66564",
@@ -117,34 +118,35 @@
   },
   ...
 ] </pre
-              >
-            </td>
-          </tr>
+                            >
+                        </td>
+                    </tr>
 
-          <tr>
-            <td>Get movie information by title</td>
-            <td>/movies/:Title</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON object containing information for the
-                user-provided movie. If unsuccessful, returns a 400 error
-                stating, "Movie could not be found."
-              </p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/movies/Transformers</code>)
-              </p>
-              <pre class="code-block">
+                    <tr>
+                        <td>Get movie information by title</td>
+                        <td>/movies/:Title</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON object containing information for
+                                the user-provided movie. If unsuccessful,
+                                returns a 400 error stating, "Movie could not be
+                                found."
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/movies/Transformers</code>)
+                            </p>
+                            <pre class="code-block">
  
 {
     "Genre": {
-        "Name": "Action",
+        "name": "Action",
         "Description": "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists."
     },
     "Director": {
-        "Name": "Michael Bay",
+        "name": "Michael Bay",
         "Bio": "Michael Bay is a renowned filmmaker known for directing high-octane action blockbusters featuring explosive visuals, dynamic camera work, and massive box-office success",
         "Birth": "1965"
     },
@@ -160,275 +162,297 @@
     "ImagePath": "transformers.png",
     "Featured": true
 } </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Get genre information by name</td>
-            <td>/movies/genre/:Genre</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a description of the user-provided genre. If
-                unsuccessful, returns a 500 error stating, "No movies match the
-                [user-provided] genre."
-              </p>
-              <p><span class="success">Success</span> example.</p>
-              <pre class="code-block" style="white-space-collapse: preserve">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get genre information by name</td>
+                        <td>/movies/genre/:Genre</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a description of the user-provided
+                                genre. If unsuccessful, returns a 500 error
+                                stating, "No movies match the [user-provided]
+                                genre."
+                            </p>
+                            <p><span class="success">Success</span> example.</p>
+                            <pre
+                                class="code-block"
+                                style="white-space-collapse: preserve"
+                            >
 "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists." </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Get director information by name</td>
-            <td>/movies/director/:Director</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>Returns a JSON object with the director's name and bio.</p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/movies/director/Christopher%20Nolan</code>):
-              </p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get director information by name</td>
+                        <td>/movies/director/:Director</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON object with the director's name
+                                and bio.
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/movies/director/Christopher%20Nolan</code>):
+                            </p>
+                            <pre class="code-block">
 {
-  "Name": "Christopher Nolan",
+  "name": "Christopher Nolan",
   "Bio": "Christopher Nolan is a critically acclaimed filmmaker known for his thought-provoking and visually stunning films, often exploring complex themes of identity and reality."
 } </pre
-              >
-            </td>
-          </tr>
-          <!-- USER ORIENTED QUERIES -->
-          <tr>
-            <td>Get list of users</td>
-            <td>/users</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON array of users. If unsuccessful, returns a 400
-                error stating "User list does not exist."
-              </p>
-              <p><span class="success">Success</span> example:</p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <!-- USER ORIENTED QUERIES -->
+                    <tr>
+                        <td>Get list of users</td>
+                        <td>/users</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON array of users. If unsuccessful,
+                                returns a 400 error stating "User list does not
+                                exist."
+                            </p>
+                            <p><span class="success">Success</span> example:</p>
+                            <pre class="code-block">
 [
   {
-      "FavoriteMovies": [],
+      "favoriteMovies": [],
       "_id": "676d80bd2c4cb1f883f6656d",
-      "Name": "Lord Farquaad",
-      "Username": "official_lordfarquaad",
-      "Email": "farquaad@example.kingdom",
-      "Password": "imissprincessfiona",
-      "Birthday": "1985-02-19T00:00:00.000Z"
+      "name": "Lord Farquaad",
+      "username": "official_lordfarquaad",
+      "email": "farquaad@example.kingdom",
+      "password": "imissprincessfiona",
+      "birthday": "1985-02-19T00:00:00.000Z"
   },
   {
-      "FavoriteMovies": [],
+      "favoriteMovies": [],
       "_id": "676d80bd2c4cb1f883f6656e",
-      "Name": "Gandalf the Grey",
-      "Username": "wise_old_wizard",
-      "Email": "gandalf@middle-earth.net",
-      "Password": "staffofpower123",
-      "Birthday": "1000-01-01T00:00:00.000Z"
+      "name": "Gandalf the Grey",
+      "username": "wise_old_wizard",
+      "email": "gandalf@middle-earth.net",
+      "password": "staffofpower123",
+      "birthday": "1000-01-01T00:00:00.000Z"
   },
   ...
 ] </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Get user by username</td>
-            <td>/users/:Username</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>Returns JSON object of user's data.</p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/users/wise_old_wizard</code>):
-              </p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get user by username</td>
+                        <td>/users/:Username</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>Returns JSON object of user's data.</p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/users/wise_old_wizard</code>):
+                            </p>
+                            <pre class="code-block">
 {
-  "FavoriteMovies": [],
+  "favoriteMovies": [],
   "_id": "676d80bd2c4cb1f883f6656e",
-  "Name": "Gandalf the Grey",
-  "Username": "wise_old_wizard",
-  "Email": "gandalf@middle-earth.net",
-  "Password": "staffofpower123",
-  "Birthday": "1000-01-01T00:00:00.000Z"
+  "name": "Gandalf the Grey",
+  "username": "wise_old_wizard",
+  "email": "gandalf@middle-earth.net",
+  "password": "staffofpower123",
+  "birthday": "1000-01-01T00:00:00.000Z"
 } </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Create new user</td>
-            <td>/users</td>
-            <td><code>POST</code></td>
-            <td>
-              <p>JSON object with new user's data (required fields).</p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Create new user</td>
+                        <td>/users</td>
+                        <td><code>POST</code></td>
+                        <td>
+                            <p>
+                                JSON object with new user's data (required
+                                fields).
+                            </p>
+                            <pre class="code-block">
 {
-  "Username": "FlorencePizza",
-  "Password": "FourFireHazards444",
-  "Email": "florentine@example.com",
-  "Birthday": "1983-04-24",
-  "FavoriteMovies": []
+  "username": "FlorencePizza",
+  "password": "FourFireHazards444",
+  "email": "florentine@example.com",
+  "birthday": "1983-04-24",
+  "favoriteMovies": []
 } </pre
-              >
-            </td>
-            <td>
-              <p>
-                New user is created, and then a 200 status and a JSON object
-                with the user's information (e.g., generated ID) is returned.
-              </p>
-              <p><span class="success">Success</span> example:</p>
-              <pre class="code-block">
+                            >
+                        </td>
+                        <td>
+                            <p>
+                                New user is created, and then a 200 status and a
+                                JSON object with the user's information (e.g.,
+                                generated ID) is returned.
+                            </p>
+                            <p><span class="success">Success</span> example:</p>
+                            <pre class="code-block">
 {
-  "Username": "FlorencePizza",
-  "Password": "FourFireHazards444",
-  "Email": "florentine@example.com",
-  "Birthday": "1983-04-24T00:00:00.000Z",
-  "FavoriteMovies": [],
+  "username": "FlorencePizza",
+  "password": "FourFireHazards444",
+  "email": "florentine@example.com",
+  "birthday": "1983-04-24T00:00:00.000Z",
+  "favoriteMovies": [],
   "_id": "676f01fbf9acd94021a88be4",
   "__v": 0
 } </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>User updates their information</td>
-            <td>/users/:Username</td>
-            <td><code>PUT</code></td>
-            <td>
-              <p>JSON object with updated user's data.</p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>User updates their information</td>
+                        <td>/users/:Username</td>
+                        <td><code>PUT</code></td>
+                        <td>
+                            <p>JSON object with updated user's data.</p>
+                            <pre class="code-block">
 {
-  "Username": "FlorencePizza",
-  "Password": "aStrongerPassword555",
-  "Email": "florentine@example.com",
-  "Birthday": "1983-04-24"
+  "username": "FlorencePizza",
+  "password": "aStrongerPassword555",
+  "email": "florentine@example.com",
+  "birthday": "1983-04-24"
 } </pre
-              >
-            </td>
-            <td>
-              <p>
-                In this example, the user's password is updated and a JSON
-                object with the user's updated information is returned.
-              </p>
-              <p><span class="success">Success</span> example:</p>
-              <pre class="code-block">
+                            >
+                        </td>
+                        <td>
+                            <p>
+                                In this example, the user's password is updated
+                                and a JSON object with the user's updated
+                                information is returned.
+                            </p>
+                            <p><span class="success">Success</span> example:</p>
+                            <pre class="code-block">
 {
   "_id": "676f01fbf9acd94021a88be4",
-  "Username": "FlorencePizza",
-  "Password": "aStrongerPassword555",
-  "Email": "florentine@example.com",
-  "Birthday": "1983-04-24T00:00:00.000Z",
-  "FavoriteMovies": [],
+  "username": "FlorencePizza",
+  "password": "aStrongerPassword555",
+  "email": "florentine@example.com",
+  "birthday": "1983-04-24T00:00:00.000Z",
+  "favoriteMovies": [],
   "__v": 0
 } </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Get list of user's favorite movies</td>
-            <td>/users/:Username/movies</td>
-            <td><code>GET</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON array of the titles and corresponding IDs of the
-                user's favorite movies. If "FavoriteMovies" is empty, returns a
-                400 error stating "@[Username] has not added any movies." If
-                another error occurs, returns a 500 error stating.
-              </p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/users/wise_old_wizard/movies</code>):
-              </p>
-              <p class="code-block">[ "676d807a2c4cb1f883f66563" ]</p>
-            </td>
-          </tr>
-          <tr>
-            <td>Add movie to user's favorites</td>
-            <td>/users/:Username/movies/:MovieID</td>
-            <td><code>POST</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON object of the user's information, including the
-                added movie's ID in the FavoriteMovies array. If the movie
-                cannot be added or the user does not exist, returns a 500 error.
-              </p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>):
-              </p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Get list of user's favorite movies</td>
+                        <td>/users/:Username/movies</td>
+                        <td><code>GET</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON array of the titles and
+                                corresponding IDs of the user's favorite movies.
+                                If "favoriteMovies" is empty, returns a 400
+                                error stating "@[Username] has not added any
+                                movies." If another error occurs, returns a 500
+                                error stating.
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/users/wise_old_wizard/movies</code>):
+                            </p>
+                            <p class="code-block">
+                                [ "676d807a2c4cb1f883f66563" ]
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Add movie to user's favorites</td>
+                        <td>/users/:Username/movies/:MovieID</td>
+                        <td><code>POST</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON object of the user's information,
+                                including the added movie's ID in the
+                                favoriteMovies array. If the movie cannot be
+                                added or the user does not exist, returns a 500
+                                error.
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>):
+                            </p>
+                            <pre class="code-block">
 {
   "_id": "676d80bd2c4cb1f883f6656e",
-  "Name": "Gandalf the Grey",
-  "Username": "wise_old_wizard",
-  "Email": "gandalf@middle-earth.net",
-  "Password": "staffofpower123",
-  "Birthday": "1000-01-01T00:00:00.000Z",
-  "FavoriteMovies": [
+  "name": "Gandalf the Grey",
+  "username": "wise_old_wizard",
+  "email": "gandalf@middle-earth.net",
+  "password": "staffofpower123",
+  "birthday": "1000-01-01T00:00:00.000Z",
+  "favoriteMovies": [
       "676d807a2c4cb1f883f66563",
       "676d807a2c4cb1f883f66567"
   ]
 } </pre
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Delete user by username</td>
-            <td>/users/:Username</td>
-            <td><code>DELETE</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a statement confirming the user with the provided
-                username has been deleted. If the user does not exist, returns a
-                400 error stating, "[Username] was not found."
-              </p>
-              <p>
-                <span class="success">Success</span> example
-                (<code>/users/ToBeDeleted</code>):
-              </p>
-              <p class="code-block">ToBeDeleted was deleted.</p>
-            </td>
-          </tr>
-          <tr>
-            <td>Delete movies from favorites</td>
-            <td>/users/:Username/movies/:MovieID</td>
-            <td><code>DELETE</code></td>
-            <td>None</td>
-            <td>
-              <p>
-                Returns a JSON object of the user's information, confirming the
-                movie is removed from the FavoriteMovies array. If the movie
-                cannot be added or the user does not exist, returns a 500 error.
-              </p>
-              <p>
-                <span class="success">Success</span> example:
-                (<code>users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>)
-              </p>
-              <pre class="code-block">
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Delete user by username</td>
+                        <td>/users/:Username</td>
+                        <td><code>DELETE</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a statement confirming the user with the
+                                provided username has been deleted. If the user
+                                does not exist, returns a 400 error stating,
+                                "[Username] was not found."
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example
+                                (<code>/users/ToBeDeleted</code>):
+                            </p>
+                            <p class="code-block">ToBeDeleted was deleted.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Delete movies from favorites</td>
+                        <td>/users/:Username/movies/:MovieID</td>
+                        <td><code>DELETE</code></td>
+                        <td>None</td>
+                        <td>
+                            <p>
+                                Returns a JSON object of the user's information,
+                                confirming the movie is removed from the
+                                favoriteMovies array. If the movie cannot be
+                                added or the user does not exist, returns a 500
+                                error.
+                            </p>
+                            <p>
+                                <span class="success">Success</span> example:
+                                (<code>users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</code>)
+                            </p>
+                            <pre class="code-block">
 {
   "_id": "676d80bd2c4cb1f883f6656e",
-  "Name": "Gandalf the Grey",
-  "Username": "wise_old_wizard",
-  "Email": "gandalf@middle-earth.net",
-  "Password": "staffofpower123",
-  "Birthday": "1000-01-01T00:00:00.000Z",
-  "FavoriteMovies": [
+  "name": "Gandalf the Grey",
+  "username": "wise_old_wizard",
+  "email": "gandalf@middle-earth.net",
+  "password": "staffofpower123",
+  "birthday": "1000-01-01T00:00:00.000Z",
+  "favoriteMovies": [
       "676d807a2c4cb1f883f66563"
   ]
 }</pre
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </body>
+                            >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>
