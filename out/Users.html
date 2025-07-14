@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: Users</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: Users</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>Users</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".DELETE/users/:username"><span class="type-signature">(async, static) </span>DELETE /users/:username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a string confirming the user with the
+provided username has been deleted.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line672">line 672</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">/users/ToBeDeleted</p>
+    
+    <pre class="prettyprint"><code>ToBeDeleted was deleted.</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".DELETE/users/:username/movies/:movieId"><span class="type-signature">(async, static) </span>DELETE /users/:username/movies/:movieId<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON object of the user's information,
+confirming the movie is removed from the
+favoriteMovies array.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line621">line 621</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">/users/wise_old_wizard/movies/686bfaa5cc39c5753f9ffc21</p>
+    
+    <pre class="prettyprint"><code>{
+ "_id": "676d80bd2c4cb1f883f6656e",
+ "name": "Gandalf the Grey",
+ "username": "wise_old_wizard",
+ "email": "gandalf@middle-earth.net",
+ "password": "staffofpower123",
+ "birthday": "1000-01-01T00:00:00.000Z",
+ "favoriteMovies": [
+     "676d807a2c4cb1f883f66563",
+     "676d807a2c4cb1f883f66567",
+     // "686bfaa5cc39c5753f9ffc21" was previously here
+     "686bfa5acc39c5753f9ffc1f"
+]}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".GET/users"><span class="type-signature">(async, static) </span>GET /users<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns an array of users.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line239">line 239</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>[{
+ "favoriteMovies": [],
+ "_id": "676d80bd2c4cb1f883f6656d",
+ "name": "Lord Farquaad",
+ "username": "official_lordfarquaad",
+ "email": "farquaad@example.kingdom",
+ "password": "imissprincessfiona",
+ "birthday": "1985-02-19T00:00:00.000Z"
+},
+{
+ "favoriteMovies": [],
+ "_id": "676d80bd2c4cb1f883f6656e",
+ "name": "Gandalf the Grey",
+ "username": "wise_old_wizard",
+ "email": "gandalf@middle-earth.net",
+ "password": "staffofpower123",
+ "birthday": "1000-01-01T00:00:00.000Z"
+},
+... ]</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".GET/users/:username"><span class="type-signature">(async, static) </span>GET /users/:username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON object of user's data.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line282">line 282</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">/users/wise_old_wizard</p>
+    
+    <pre class="prettyprint"><code>{
+ "favoriteMovies": [],
+ "_id": "676d80bd2c4cb1f883f6656e",
+ "name": "Gandalf the Grey",
+ "username": "wise_old_wizard",
+ "email": "gandalf@middle-earth.net",
+ "password": "staffofpower123",
+ "birthday": "1000-01-01T00:00:00.000Z"
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".GET/users/:username/movies"><span class="type-signature">(async, static) </span>GET /users/:username/movies<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON array of the IDs
+of the user's favorite movies.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line327">line 327</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">/users/wise_old_wizard/movies</p>
+    
+    <pre class="prettyprint"><code>[
+ "676d807a2c4cb1f883f66563",
+ "686bfaa5cc39c5753f9ffc21",
+ "686bfa5acc39c5753f9ffc1f"
+]</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".POST/users"><span class="type-signature">(async, static) </span>POST /users<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON object with the new user's data (required fields).
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line386">line 386</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Request body
+{
+ "username": "FlorencePizza",
+ "password": "FourFireHazards444",
+ "email": "florentine@example.com",
+ "birthday": "1983-04-24",
+ "favoriteMovies": []
+}
+
+// Response
+{
+ "username": "FlorencePizza",
+ "password": "FourFireHazards444",
+ "email": "florentine@example.com",
+ "birthday": "1983-04-24",
+ "favoriteMovies": [],
+ "_id": "676f01fbf9acd94021a88be4",
+ "__v": 0
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".POST/users/:username/movies/:movieId"><span class="type-signature">(async, static) </span>POST /users/:username/movies/:movieId<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON object of the user's information,
+including the added movie's ID in the
+favoriteMovies array.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line568">line 568</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</p>
+    
+    <pre class="prettyprint"><code>{
+ "_id": "676d80bd2c4cb1f883f6656e",
+ "name": "Gandalf the Grey",
+ "username": "wise_old_wizard",
+ "email": "gandalf@middle-earth.net",
+ "password": "staffofpower123",
+ "birthday": "1000-01-01T00:00:00.000Z",
+ "favoriteMovies": [
+     "676d807a2c4cb1f883f66563",
+     "676d807a2c4cb1f883f66567", // Added movie ID
+     "686bfaa5cc39c5753f9ffc21",
+     "686bfa5acc39c5753f9ffc1f"
+]}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".PUT/users/:username"><span class="type-signature">(async, static) </span>PUT /users/:username<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Returns a JSON object with the user's updated data.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line464">line 464</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Request body with new password
+{
+ "username": "FlorencePizza",
+ "password": "aStrongerPassword555", // was "FourFireHazards444"
+ "email": "florentine@example.com",
+ "birthday": "1983-04-24",
+}
+
+// Response
+{
+ "_id": "676f01fbf9acd94021a88be4",
+ "username": "FlorencePizza",
+ "password": "aStrongerPassword555",
+ "email": "florentine@example.com",
+ "birthday": "1983-04-24",
+ "favoriteMovies": [
+     "6772ea661615b4a930ae9635",
+     "6772ea661615b4a930ae962f"
+ ],
+ "__v": 0
+}</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Movies.html">Movies</a></li><li><a href="Users.html">Users</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GET/movies">GET /movies</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jul 14 2025 12:16:37 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

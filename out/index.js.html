@@ -1,4 +1,32 @@
-const express = require('express'),
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const express = require('express'),
     morgan = require('morgan'),
     fs = require('fs'),
     path = require('path'),
@@ -100,7 +128,7 @@ app.get('/index', (req, res) => {
  *  "featured": true
  * },
  * ...
- * @returns {Array<Object>} Array includes objects containing movie data
+ * @returns {Array&lt;Object>} Array includes objects containing movie data
  */
 app.get(
     '/movies',
@@ -127,7 +155,7 @@ app.get(
  * @async
  * @name GET /movies/:title
  * @example
- * <caption>/movies/Transformers</caption>
+ * &lt;caption>/movies/Transformers&lt;/caption>
  * {
  *  "genre:" {
  *      "name": "Action",
@@ -177,7 +205,7 @@ app.get('/movies/:title', async (req, res) => {
  * @async
  * @name GET /movies/genre/:genre
  * @example
- * <caption>/movies/genre/Action</caption>
+ * &lt;caption>/movies/genre/Action&lt;/caption>
  * "Action films are fast-paced movies characterized by intense sequences of physical feats, chases, battles, and stunts, often revolving around high-stakes conflicts and heroic protagonists."
  * @returns {string} String describes the genre.
  */
@@ -204,7 +232,7 @@ app.get('/movies/genre/:genre', async (req, res) => {
  * @async
  * @name GET /movies/director/:directorName
  * @example
- * <caption>/movies/director/Christopher%20Nolan</caption>
+ * &lt;caption>/movies/director/Christopher%20Nolan&lt;/caption>
  * {
  *  "name": "Christopher Nolan",
  *  "bio": "Christopher Nolan is a critically acclaimed filmmaker known for his thought-provoking and visually stunning films, often exploring complex themes of identity and reality."
@@ -255,7 +283,7 @@ app.get('/movies/director/:directorName', async (req, res) => {
  *  "birthday": "1000-01-01T00:00:00.000Z"
  * },
  * ... ]
- * @returns {Array<Object>} Array consists of user objects
+ * @returns {Array&lt;Object>} Array consists of user objects
  */
 app.get('/users', async (req, res) => {
     await Users.find()
@@ -278,7 +306,7 @@ app.get('/users', async (req, res) => {
  * @async
  * @name GET /users/:username
  * @example
- * <caption>/users/wise_old_wizard</caption>
+ * &lt;caption>/users/wise_old_wizard&lt;/caption>
  * {
  *  "favoriteMovies": [],
  *  "_id": "676d80bd2c4cb1f883f6656e",
@@ -323,13 +351,13 @@ app.get(
  * @async
  * @name GET /users/:username/movies
  * @example
- * <caption>/users/wise_old_wizard/movies</caption>
+ * &lt;caption>/users/wise_old_wizard/movies&lt;/caption>
  * [
  *  "676d807a2c4cb1f883f66563",
  *  "686bfaa5cc39c5753f9ffc21",
  *  "686bfa5acc39c5753f9ffc1f"
  * ]
- * @returns {Array<string>} Array includes strings of movie IDs
+ * @returns {Array&lt;string>} Array includes strings of movie IDs
  */
 app.get(
     '/users/:username/movies',
@@ -338,14 +366,14 @@ app.get(
         await Users.findOne({ username: req.params.username })
             .then(async (user) => {
                 if (user) {
-                    if (user.favoriteMovies.length < 1) {
+                    if (user.favoriteMovies.length &lt; 1) {
                         res.status(204).send(
                             `@${user.username} has not added any movies.`
                         );
                     } else {
                         let movieTitlesList = [];
 
-                        for (i = 0; i < user.favoriteMovies.length; i++) {
+                        for (i = 0; i &lt; user.favoriteMovies.length; i++) {
                             let movie = await getMovieDocument(
                                 user.favoriteMovies[i]
                             );
@@ -372,7 +400,7 @@ async function getMovieDocument(id) {
     return await Movies.findById(id);
 }
 
-// CREATE & UPDATE METHODS
+// CREATE &amp; UPDATE METHODS
 
 /**
  * Returns a JSON object with the new user's data (required fields).
@@ -564,7 +592,7 @@ app.put(
  * @async
  * @name POST /users/:username/movies/:movieId
  * @example
- * <caption>/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567</caption>
+ * &lt;caption>/users/wise_old_wizard/movies/676d807a2c4cb1f883f66567&lt;/caption>
  * {
  *  "_id": "676d80bd2c4cb1f883f6656e",
  *  "name": "Gandalf the Grey",
@@ -617,7 +645,7 @@ app.post(
  * @async
  * @name DELETE /users/:username/movies/:movieId
  * @example
- * <caption>/users/wise_old_wizard/movies/686bfaa5cc39c5753f9ffc21</caption>
+ * &lt;caption>/users/wise_old_wizard/movies/686bfaa5cc39c5753f9ffc21&lt;/caption>
  * {
  *  "_id": "676d80bd2c4cb1f883f6656e",
  *  "name": "Gandalf the Grey",
@@ -667,7 +695,7 @@ app.delete(
  * @async
  * @name DELETE /users/:username
  * @example
- * <caption>/users/ToBeDeleted</caption>
+ * &lt;caption>/users/ToBeDeleted&lt;/caption>
  * ToBeDeleted was deleted.
  * @returns {string} String is a message of a successful deletion
  */
@@ -707,3 +735,26 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
     console.log(`Listening on Port ${port}.`);
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DELETE/users/:username">DELETE /users/:username</a></li><li><a href="global.html#DELETE/users/:username/movies/:movieId">DELETE /users/:username/movies/:movieId</a></li><li><a href="global.html#GET/movies">GET /movies</a></li><li><a href="global.html#GET/movies/:title">GET /movies/:title</a></li><li><a href="global.html#GET/movies/director/:directorName">GET /movies/director/:directorName</a></li><li><a href="global.html#GET/movies/genre/:genre">GET /movies/genre/:genre</a></li><li><a href="global.html#GET/users">GET /users</a></li><li><a href="global.html#GET/users/:username">GET /users/:username</a></li><li><a href="global.html#GET/users/:username/movies">GET /users/:username/movies</a></li><li><a href="global.html#POST/login">POST /login</a></li><li><a href="global.html#POST/users">POST /users</a></li><li><a href="global.html#POST/users/:username/movies/:movieId">POST /users/:username/movies/:movieId</a></li><li><a href="global.html#PUT/users/:username">PUT /users/:username</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jul 14 2025 12:40:36 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
