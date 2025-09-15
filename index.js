@@ -35,18 +35,28 @@ let allowedOrigins = [
     'http://localhost:4200',
     'https://micujones.github.io',
 ];
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (!origin) return callback(null, true);
-            if (!allowedOrigins.includes(origin)) {
-                let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
-                return callback(new Error(message), false);
-            }
-            return callback(null, true);
-        },
-    })
-);
+/**
+ * const allowedOrigins = process.env.ALLOWED_ORIGINS
+ * ? process.env.ALLOWED_ORIGINS.split(',')
+ * : ['http://localhost:8080'];
+ */
+
+app.use(cors()); // allow all orgins
+
+/**
+    app.use(
+        cors({
+            origin: (origin, callback) => {
+                if (!origin) return callback(null, true);
+                if (!allowedOrigins.includes(origin)) {
+                    let message = `The CORS policy for this application doesn't allow access from origin ${origin}`;
+                    return callback(new Error(message), false);
+                }
+                return callback(null, true);
+            },
+        })
+    ); 
+*/
 
 // AUTHENTICATION
 let auth = require('./auth')(app);
