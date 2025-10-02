@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken'),
-    passport = require('passport');
+    passport = require('passport'),
+    dotenv = require('dotenv').config();
 
 require('./passport');
 

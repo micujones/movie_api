@@ -3,7 +3,8 @@ const express = require('express'),
     fs = require('fs'),
     path = require('path'),
     bodyParser = require('body-parser'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    dotenv = require('dotenv').config();
 
 const mongoose = require('mongoose'),
     Models = require('./models.js');
@@ -715,5 +716,5 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Listening on Port ${port}.`);
+    console.log(`Listening at http://localhost:${port}.`);
 });
